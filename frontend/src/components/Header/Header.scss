@@ -1,0 +1,146 @@
+@use "styles/mixins" as *;
+
+.header {
+  background-color: var(--header-bg);
+  backdrop-filter: blur(24px) saturate(210%);
+  -webkit-backdrop-filter: blur(24px) saturate(210%);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow:
+    0 4px 20px -5px rgba(0, 0, 0, 0.04),
+    0 1px 1px 0 rgba(255, 255, 255, 0.1) inset;
+  transition:
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+
+  &__logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+  }
+
+  &__logo-icon {
+    stroke-width: 2.2px;
+  }
+
+  &__header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.2;
+  }
+
+  &__nav-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none; //remove underline
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+    }
+
+    // &--active {
+    // }
+  }
+
+  &__nav-link.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  &__toggle-btn {
+    @include button-reset;
+    display: inline-flex; // makes an element behave like an inline element on the outside and a flex container on the inside.
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active {
+      transform: translateY(0.5px);
+    }
+  }
+
+  &__theme-icon {
+    stroke-width: 2.2px;
+  }
+}
+
+/* Responsive adjustment */
+@media (max-width: 640px) {
+  .header-container {
+    &__nav-section {
+      gap: 8px;
+    }
+
+    &__nav-link span {
+      display: none; /* Hide text, keep icons on mobile for compact spacing */
+    }
+
+    &__nav-link {
+      padding: 8px;
+    }
+
+    &__toggle-label {
+      display: none; /* Hide 'Light' or 'Dark' label on mobile, leaving just icon */
+    }
+  }
+}

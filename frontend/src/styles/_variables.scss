@@ -1,0 +1,167 @@
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Color Palette - Light Theme (Soft Flow Gradient) */
+  --bg-primary: #f5f3ff;
+  --bg-gradient-end: #e0f2fe;
+  --bg-gradient-mesh: linear-gradient(
+    135deg,
+    #f5f3ff 0%,
+    #f0fdf4 30%,
+    #e0f2fe 70%,
+    #eff6ff 100%
+  );
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.5);
+  --border-color: rgba(15, 23, 42, 0.06);
+  --border-hover: rgba(15, 23, 42, 0.12);
+
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --text-subtle: #64748b;
+
+  /* Accent Colors */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-light: rgba(79, 70, 229, 0.08);
+
+  --color-success: #059669;
+  --color-success-hover: #047857;
+  --color-success-light: rgba(5, 150, 105, 0.06);
+
+  --color-danger: #e11d48;
+  --color-danger-hover: #be123c;
+  --color-danger-light: rgba(225, 29, 72, 0.06);
+
+  --color-warn: #d97706;
+  --color-warn-light: rgba(217, 119, 6, 0.06);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md:
+    0 4px 12px -2px rgba(79, 70, 229, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg:
+    0 12px 24px -4px rgba(79, 70, 229, 0.08),
+    0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --shadow-xl:
+    0 24px 36px -8px rgba(79, 70, 229, 0.12),
+    0 8px 16px -4px rgba(0, 0, 0, 0.04);
+
+  /* Borders & Spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+/*
+- [data-theme="light"]  is a custom attribute you can also so for applying css style 
+  aside from selector, id and element
+  - only safely using `data-*` attribute, then enclose with [] when declairing style in css file
+*/
+[data-theme="light"] {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Color Palette - Light Theme (Soft Flow Gradient) */
+  --bg-primary: #f5f3ff;
+  --bg-gradient-end: #e0f2fe;
+  --bg-gradient-mesh: linear-gradient(
+    135deg,
+    #f5f3ff 0%,
+    #f0fdf4 30%,
+    #e0f2fe 70%,
+    #eff6ff 100%
+  );
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.5);
+  --border-color: rgba(15, 23, 42, 0.06);
+  --border-hover: rgba(15, 23, 42, 0.12);
+
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --text-subtle: #64748b;
+
+  /* Accent Colors */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-light: rgba(79, 70, 229, 0.08);
+
+  --color-success: #059669;
+  --color-success-hover: #047857;
+  --color-success-light: rgba(5, 150, 105, 0.06);
+
+  --color-danger: #e11d48;
+  --color-danger-hover: #be123c;
+  --color-danger-light: rgba(225, 29, 72, 0.06);
+
+  --color-warn: #d97706;
+  --color-warn-light: rgba(217, 119, 6, 0.06);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md:
+    0 4px 12px -2px rgba(79, 70, 229, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg:
+    0 12px 24px -4px rgba(79, 70, 229, 0.08),
+    0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --shadow-xl:
+    0 24px 36px -8px rgba(79, 70, 229, 0.12),
+    0 8px 16px -4px rgba(0, 0, 0, 0.04);
+
+  /* Borders & Spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #090d16;
+  --bg-gradient-end: #030712;
+  --bg-gradient-mesh: linear-gradient(
+    135deg,
+    #090d16 0%,
+    #0b1528 40%,
+    #171026 80%,
+    #030712 100%
+  );
+  --bg-card: rgba(21, 30, 52, 0.82);
+  --header-bg: rgba(9, 13, 22, 0.55);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #475569;
+
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-primary-light: rgba(99, 102, 241, 0.15);
+
+  --color-success: #10b981;
+  --color-success-hover: #34d399;
+  --color-success-light: rgba(16, 185, 129, 0.12);
+
+  --color-danger: #f43f5e;
+  --color-danger-hover: #fb7185;
+  --color-danger-light: rgba(244, 63, 94, 0.12);
+
+  --color-warn: #fbbf24;
+  --color-warn-light: rgba(251, 191, 36, 0.12);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md:
+    0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg:
+    0 12px 24px -4px rgba(0, 0, 0, 0.4), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl:
+    0 24px 36px -8px rgba(0, 0, 0, 0.5), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
+}
+
+/* Reusable Utility layout blocks */
+.container {
+  width: 100%;
+  max-width: 1280px; // prevent to much stretch
+  margin: 0 auto;
+  padding: 0 24px;
+}
