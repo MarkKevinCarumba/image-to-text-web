@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { ThemeProvider } from "contexts/theme/themeProvider";
 import Ocr from "./Ocr";
 
 function App() {
   return (
     <>
-      <Ocr />
+      <ThemeProvider>
+        <Ocr />
+      </ThemeProvider>
     </>
   );
 }
