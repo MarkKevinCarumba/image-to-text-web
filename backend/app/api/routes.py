@@ -20,7 +20,17 @@ logger = logging.getLogger(__name__)
 async def health_check():
     return {"status": "ok"}
 
+"""
+FastAPI internally does something similar to:
 
+files = [
+    UploadFile(image1.png),
+    UploadFile(image2.jpg),
+    UploadFile(image3.webp)
+]
+
+It is not receiving three separate API calls.
+"""
 @router.post('/convert', response_model=OCRResponse)
 async def convert_image_to_text(files: List[UploadFile] = File(...)):
     results = []

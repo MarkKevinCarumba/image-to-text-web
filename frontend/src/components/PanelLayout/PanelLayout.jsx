@@ -24,9 +24,11 @@ const PanelLayout = ({
   const selectedImage =
     images.find((img) => img.id === selectedImageId) || images[0];
 
-  const hasConvertibleImages = images.some((img) => {
-    img.status === "idle" || img.status === "error";
-  });
+  const hasConvertibleImages = images.some(
+    (img) => img.status === "idle" || img.status === "error",
+  );
+
+  console.log("hasConvertibleImages", hasConvertibleImages);
   return (
     <div className="workspace-grid" id="split-workspace">
       {/* LEFT PANEL: Queue & Manager */}
