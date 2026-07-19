@@ -3,9 +3,11 @@ import Header from "components/Header/Header";
 import Hero from "components/Hero/Hero";
 import FileUploader from "components/FileUploader/FileUploader";
 import Footer from "components/footer/footer";
+import { convertImagesToText } from "services/api/ocrApi";
 import { Send, Heart, Activity } from "lucide-react";
 import "./OcrMainPage.scss";
 import PanelLayout from "components/PanelLayout/PanelLayout";
+import Results from "components/ResultsList/Results";
 
 const OcrMainPage = () => {
   const [images, setImages] = useState([]);
@@ -49,6 +51,8 @@ const OcrMainPage = () => {
     setImages((prev) => {
       const filtered = prev.filter((img) => img.id !== id);
 
+      console.log("Filtered ID: handleRemoveImage", filtered);
+
       if (selectedImageId === id) {
         if (filtered.length > 0) {
           setSelectedImageId(filtered[0].id);
@@ -56,6 +60,7 @@ const OcrMainPage = () => {
           setSelectedImageId(null);
         }
       }
+      return filtered;
     });
   };
 
@@ -72,80 +77,104 @@ const OcrMainPage = () => {
     setIsProcessing(false);
   };
 
+  // Send images to Backend for text convertion
   const handleConvert = async () => {
+    console.log("handleConvert is click!");
     if (isProcessing) return;
+
+    console.log("handleConvert is click!");
 
     const targets = images.filter(
       (img) => img.status === "idle" || img.status === "error",
     );
     if (targets.length === 0) return;
 
+    setIsProcessing(true);
+
     // Swap states of target list to processing
-    setImages((prev) => {
+    setImages((prev) =>
       prev.map((img) => {
         if (img.status === "idle" || img.status === "error") {
           return { ...img, status: "processing", progress: 0, error: null };
         }
         return img;
-      });
-    });
+      }),
+    );
 
-    // Perform OCR execution in parallel on all target images
-    const ocrPromises = targets.map(async (img) => {
-      try {
-        const ocrData = await performOCR(
-          img.file || img.previewUrl,
-          (percent) => {
-            // Progress updater callback
-            setImages((prev) =>
-              prev.map((item) => {
-                if (item.id === img.id) {
-                  return { ...item, progress: percent };
-                }
-                return item;
-              }),
-            );
-          },
-        );
+    try {
+      const files = targets.map((img) => img.file);
 
-        // Completed processing successfully
-        setImages((prev) =>
-          prev.map((item) => {
-            if (item.id === img.id) {
-              return {
-                ...item,
-                status: "done",
-                progress: 100,
-                result: ocrData,
-                error: null,
-              };
-            }
-            return item;
-          }),
-        );
-      } catch (err) {
-        // Handle processing failure safely
-        setImages((prev) =>
-          prev.map((item) => {
-            if (item.id === img.id) {
-              return {
-                ...item,
+      const response = await convertImagesToText(files);
+
+      console.log("API response:", response);
+
+      setImages((prev) =>
+        prev.map((img) => {
+          const result = response.results.find((r) => r.filename === img.name);
+
+          if (!result) return img;
+
+          return {
+            ...img,
+            status: "done",
+            progress: 100,
+            result: {
+              filename: result.filename,
+              text: result.text,
+              wordCount: result.text.trim().split(/\s+/).filter(Boolean).length,
+            },
+            error: null,
+          };
+        }),
+      );
+    } catch (err) {
+      console.log("API response error:", err);
+      setImages((prev) =>
+        prev.map((img) =>
+          targets.some((t) => t.id === img.id)
+            ? {
+                ...img,
                 status: "error",
                 progress: 0,
-                error: err.message || "Extraction failed",
-              };
-            }
-            return item;
-          }),
-        );
-      }
-    });
+                error: err.message,
+              }
+            : img,
+        ),
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
-    await Promise.all(ocrPromises);
-    setIsProcessing(false);
+  const handleUpdateResultText = (id, newText) => {
+    setImages((prev) =>
+      prev.map((img) => {
+        if (img.id === id && img.result) {
+          return {
+            ...img,
+            result: {
+              ...img.result,
+              text: newText,
+              wordCount: newText.trim().split(/\s+/).filter(Boolean).length,
+            },
+          };
+        }
+        return img;
+      }),
+    );
+
+    console.log("Editing Text");
+  };
+
+  const forConsole = () => {
+    if (images.length !== 0) {
+      return images.map((img) => img.file);
+    }
+    return "No image";
   };
 
   console.log("Uploaded Images:", images);
+  console.log("Actual File (images.map):", forConsole());
   console.log("Selected Images:", selectedImageId);
 
   const handleFeedbackSubmit = (e) => {
@@ -188,6 +217,14 @@ const OcrMainPage = () => {
               isProcessing={isProcessing}
             />
           </div>
+        )}
+
+        {showResults && (
+          <Results
+            images={images}
+            onStartAgain={handleClearAll}
+            onUpdateResultsText={handleUpdateResultText}
+          />
         )}
       </main>
 
