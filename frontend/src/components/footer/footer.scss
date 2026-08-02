@@ -1,5 +1,7 @@
+@use "styles/mixins" as *;
+
 .workspace-footer {
-  background-color: var(--header-bg);
+  background-color: var(--bg-main-app);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-top: 1px solid var(--border-color);
@@ -27,8 +29,13 @@
   .footer-col-title {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-main);
+    // color: var(--text-main);
     letter-spacing: -0.02em;
+
+    background: var(--text-hero-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .footer-col-desc {
     font-size: 0.85rem;
@@ -239,5 +246,28 @@
   }
   60% {
     transform: scale(1.2);
+  }
+}
+
+@include respond-to(md) {
+  .footer-content-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+@include respond-to(sm) {
+  .footer-content-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 24px;
+  }
+
+  .footer-bottom-bar {
+    .bottom-bar-layout {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
   }
 }

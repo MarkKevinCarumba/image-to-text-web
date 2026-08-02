@@ -9,7 +9,7 @@ const Footer = ({
   feedbackMsg,
 }) => {
   return (
-    <footer className="workspace-footer" id="app-footer">
+    <footer className="workspace-footer" id="app-footer ">
       <div className="container footer-content-grid">
         {/* Column 1: Brand & Purpose */}
         <div className="footer-col brand-col">
