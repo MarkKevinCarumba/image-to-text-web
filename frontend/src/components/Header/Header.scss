@@ -1,20 +1,24 @@
 @use "styles/mixins" as *;
 
 .header {
-  background-color: var(--header-bg);
-  backdrop-filter: blur(24px) saturate(210%);
-  -webkit-backdrop-filter: blur(24px) saturate(210%);
-  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow:
-    0 4px 20px -5px rgba(0, 0, 0, 0.04),
-    0 1px 1px 0 rgba(255, 255, 255, 0.1) inset;
+  background-color: transparent;
   transition:
     background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    // border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s ease;
+
+  &--scroll {
+    box-shadow:
+      0 4px 20px -5px rgba(0, 0, 0, 0.04),
+      0 1px 1px 0 rgba(255, 255, 255, 0.1) inset;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(24px) saturate(210%);
+    -webkit-backdrop-filter: blur(24px) saturate(210%);
+    border-bottom: 1px solid var(--border-color);
+  }
 }
 
 .header-container {
@@ -33,16 +37,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
     background-color: var(--color-primary-light);
     color: var(--color-primary);
     border-radius: var(--radius-md);
     border: 1px solid rgba(37, 99, 235, 0.15);
+    padding: 7px;
+    box-sizing: border-box;
   }
 
   &__logo-icon {
     stroke-width: 2.2px;
+    width: 25px;
+    height: 25px;
   }
 
   &__header-brand {
@@ -53,9 +59,25 @@
 
   &__header-title {
     font-size: 1.5rem;
-    font-weight: 700;
     color: var(--text-main);
     line-height: 1.2;
+    user-select: none;
+
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  &__pix {
+    background: var(--text-pix);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &__scan {
+    color: var(--text-scan);
+    font-weight: 500;
   }
 
   &__nav-section {
@@ -65,6 +87,7 @@
   }
 
   &__nav-link {
+    @include button-reset;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -73,6 +96,7 @@
     font-weight: 500;
     color: var(--text-muted);
     padding: 6px 12px;
+    // border: 1px solid rgba(35, 47, 77, 0.205);
     border-radius: var(--radius-sm);
     transition: all 0.2s ease;
     cursor: pointer;
@@ -80,16 +104,14 @@
     &:hover {
       background-color: var(--bg-primary);
       color: var(--text-main);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.18);
     }
-
-    // &--active {
-    // }
   }
 
-  &__nav-link.active {
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
-  }
+  // &__nav-link.active {
+  //   background-color: var(--color-primary-light);
+  //   color: var(--color-primary);
+  // }
 
   &__toggle-btn {
     @include button-reset;
@@ -98,7 +120,7 @@
     gap: 6px;
     background-color: var(--color-primary-light);
     color: var(--color-primary);
-    border: 1px solid rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(103, 131, 194, 0.37);
     border-radius: var(--radius-sm);
     padding: 6px 12px;
     font-size: 0.82rem;
@@ -125,8 +147,26 @@
 }
 
 /* Responsive adjustment */
-@media (max-width: 640px) {
+@include respond-to(md) {
   .header-container {
+    &__logo-section {
+      gap: 8px;
+    }
+
+    &__header-logo {
+      padding: 6px;
+    }
+
+    &__logo-icon {
+      stroke-width: 2.2px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &__header-title {
+      font-size: 1.3rem;
+    }
+
     &__nav-section {
       gap: 8px;
     }

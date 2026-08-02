@@ -1,11 +1,13 @@
+@use "styles/mixins" as *;
+
 .hero {
   padding: 48px 0 24px 0;
   text-align: center;
-  background: radial-gradient(
-    circle at top,
-    rgba(37, 99, 235, 0.03) 0%,
-    transparent 70%
-  );
+  // background: radial-gradient(
+  //   circle at top,
+  //   rgba(37, 99, 235, 0.03) 0%,
+  //   transparent 70%
+  // );
 }
 
 .hero-container {
@@ -36,12 +38,23 @@
   }
 
   &__hero-title {
-    font-size: 2.5rem;
+    // font-size: 2.9rem;
+    font-size: clamp(3rem, 5vw, 4.4rem);
     font-weight: 800;
-    color: var(--text-main);
+    // color: var(--text-main);
     line-height: 1.15;
     margin-bottom: 16px;
-    letter-spacing: -0.03em;
+    // letter-spacing: -0.03em;
+    letter-spacing: -0.045em;
+    max-width: 13ch;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+
+    background: var(--text-hero-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   &__hero-subtitle {
@@ -81,5 +94,27 @@
   }
   50% {
     opacity: 0.6;
+  }
+}
+
+@include respond-to(md) {
+  .hero {
+    padding: 32px 0 16px 0;
+  }
+
+  .hero-container {
+    &__hero-title {
+      font-size: 2rem;
+    }
+
+    &__hero-subtitle {
+      font-size: 1rem;
+      padding: 0 12px;
+    }
+
+    &__hero-features {
+      flex-direction: column;
+      gap: 10px;
+    }
   }
 }

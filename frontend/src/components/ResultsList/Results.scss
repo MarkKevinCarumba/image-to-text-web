@@ -1,3 +1,5 @@
+@use "styles/mixins" as *;
+
 .results-section {
   width: 100%;
   max-width: 1280px; // redundant
@@ -87,7 +89,7 @@
 }
 
 .result-card {
-  background-color: var(--bg-card);
+  background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -105,7 +107,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background-color: #fafbfc;
   cursor: pointer;
   border-bottom: 1px solid transparent;
   transition:
@@ -209,7 +210,6 @@
 
 .card-content-body {
   padding: 20px 24px 24px 24px;
-  background-color: #fdfefe;
 
   &__editor-status-banner {
     display: flex;
@@ -278,5 +278,47 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@include respond-to(md) {
+  .results-section-header {
+    margin-bottom: 15px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    // background-color: antiquewhite;
+
+    &__global-actions-tray {
+      flex-direction: column;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .btn-outcome {
+      justify-content: center;
+      width: 100%;
+      gap: 8px;
+    }
+  }
+
+  .card-top-bar {
+    flex-direction: column;
+    gap: 10px;
+
+    &__card-top-trailing {
+      gap: 18px;
+      width: 100%;
+
+      .card-actions-wrapper {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .tool-btn-text {
+        display: none;
+      }
+    }
   }
 }

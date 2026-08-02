@@ -188,46 +188,46 @@ const OcrMainPage = () => {
 
   return (
     <div className="layout-body" id="app-viewport">
-      <Header />
-
-      <main className="container main-content">
-        {!showWorkspace ? (
-          <div className="entry-flow animate-slide-down">
-            <Hero />
-            <div className="landing-uploader-wrapper">
-              <FileUploader onFilesAdded={handleFilesAdded} />
+      <div className="effect-container">
+        <Header newScan={handleClearAll} />
+        <main className="container main-content">
+          {!showWorkspace ? (
+            <div className="entry-flow animate-slide-down">
+              <Hero />
+              <div className="landing-uploader-wrapper">
+                <FileUploader onFilesAdded={handleFilesAdded} />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="workspace-flow animate-slide-down">
-            <div className="workspace-breadcrumbs">
-              <span className="breadcrumb-parent">OCR / Workspace</span>
-              <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">Batch Manager</span>
-            </div>
+          ) : (
+            <div className="workspace-flow animate-slide-down">
+              <div className="workspace-breadcrumbs">
+                <span className="breadcrumb-parent">OCR / Workspace</span>
+                <span className="breadcrumb-separator">/</span>
+                <span className="breadcrumb-current">Batch Manager</span>
+              </div>
 
-            <PanelLayout
+              <PanelLayout
+                images={images}
+                selectedImageId={selectedImageId}
+                onSelectImage={handleSelectImage}
+                onRemoveImage={handleRemoveImage}
+                onClearAll={handleClearAll}
+                onConvert={handleConvert}
+                onAddImages={handleFilesAdded}
+                isProcessing={isProcessing}
+              />
+            </div>
+          )}
+
+          {showResults && (
+            <Results
               images={images}
-              selectedImageId={selectedImageId}
-              onSelectImage={handleSelectImage}
-              onRemoveImage={handleRemoveImage}
-              onClearAll={handleClearAll}
-              onConvert={handleConvert}
-              onAddImages={handleFilesAdded}
-              isProcessing={isProcessing}
+              onStartAgain={handleClearAll}
+              onUpdateResultsText={handleUpdateResultText}
             />
-          </div>
-        )}
-
-        {showResults && (
-          <Results
-            images={images}
-            onStartAgain={handleClearAll}
-            onUpdateResultsText={handleUpdateResultText}
-          />
-        )}
-      </main>
-
+          )}
+        </main>
+      </div>
       <Footer
         feedbackSubmitted={feedbackSubmitted}
         handleFeedbackSubmit={handleFeedbackSubmit}

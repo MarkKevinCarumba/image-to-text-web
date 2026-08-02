@@ -1,3 +1,5 @@
+@use "styles/mixins" as *;
+
 .uploader-container {
   width: 100%;
 }
@@ -16,6 +18,8 @@
   text-align: center;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
+
+  background-image: var(--bg-dropzone);
 
   &:hover {
     border-color: var(--color-primary);
@@ -207,5 +211,27 @@
     padding: 8px 12px;
     background-color: var(--color-danger-light);
     border-radius: var(--radius-sm);
+  }
+}
+
+@include respond-to(md) {
+  .dropzone {
+    .clipboard-indicator {
+      gap: 5px;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+    }
+  }
+
+  .url-ingestion-block {
+    /* URL Ingestion Panel */
+    .url-form {
+      flex-direction: column;
+    }
+
+    .url-submit-btn {
+      justify-content: center;
+      padding: 12px;
+    }
   }
 }
